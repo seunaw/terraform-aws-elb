@@ -20,6 +20,7 @@ module "elb" {
   access_logs  = var.access_logs
   health_check = var.health_check
 
+  # @TODO - get tag naming convention from module
   tags = merge(
     var.tags,
     {
