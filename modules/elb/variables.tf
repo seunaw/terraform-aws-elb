@@ -69,5 +69,4 @@ variable "access_logs" {
 variable "health_check" {
   description = "A health check block"
   type        = map(string)
-  default     = {}
 }
