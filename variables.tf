@@ -84,3 +84,9 @@ variable "instances" {
   type        = list(string)
   default     = []
 }
+
+variable "network_lb" {
+  description = "Enable Network Load Balancer"
+  type        = bool
+  default     = false
+}

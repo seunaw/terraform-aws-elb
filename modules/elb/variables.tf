@@ -71,3 +71,9 @@ variable "health_check" {
   type        = map(string)
   default     = {}
 }
+
+variable "network_lb" {
+  description = "Enable Network Load Balancer"
+  type        = bool
+  default     = false
+}
