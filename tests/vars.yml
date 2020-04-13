@@ -1,0 +1,8 @@
+lb_name: "terraform-testing-elb"
+lb_ext_name: "terraform-testing-elb-ext"
+
+nlb_name: "terraform-testing-nlb"
+nlb_ext_name: "terraform-testing-nlb-ext"
+
+vpc_id: "vpc-94cbd2f6"
+region: us-west-2

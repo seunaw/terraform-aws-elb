@@ -1,0 +1,67 @@
+# @TODO Write verification tests
+---
+- set_fact:
+    subnets: 
+      - subnet-0120e554134068a66
+      - subnet-0aad6475e58f5245b
+      -  
+- name: "{{ label }} Checking Internal ELB" 
+  ec2_elb_info:
+    names: "{{ lb_name }}"
+    region: "{{ region }}"
+  register: elb_internal
+  failed_when: >
+    (elb_internal.elbs[0].scheme != "internal") or
+    (elb_internal.elbs[0].vpc_id != vpc_id) or
+    (elb_internal.elbs[0].listeners[0].instance_port != 80) or
+    (elb_internal.elbs[0].listeners[0].instance_protocol != "TCP") or
+    (elb_internal.elbs[0].listeners[0].load_balancer_port != 80) or
+    (elb_internal.elbs[0].listeners[0].protocol != "TCP") or
+    (elb_internal.elbs[0].tags.Name != lb_name)
+
+- name: "{{ label }} Debug: elb_internal"
+  debug:
+    var: elb_internal
+    verbosity: 2
+
+- name: "{{ label }} Checking External ELB"
+  ec2_elb_info:
+    names: "{{ lb_ext_name }}"
+    region: "{{ region }}"
+  register: elb_external
+  failed_when: >
+    (elb_external.elbs[0].scheme != "internet-facing") or
+    (elb_external.elbs[0].vpc_id != vpc_id) or
+    (elb_external.elbs[0].listeners[0].instance_port != 80) or
+    (elb_external.elbs[0].listeners[0].instance_protocol != "TCP") or
+    (elb_external.elbs[0].listeners[0].load_balancer_port != 80) or
+    (elb_external.elbs[0].listeners[0].protocol != "TCP") or
+    (elb_external.elbs[0].tags.Name != lb_ext_name )
+
+- name: "{{ label }} Debug: elb_external"
+  debug:
+    var: elb_external
+    verbosity: 2
+
+# @TODO - NLB don't support check_mode, find another way to test
+#- name: "{{ label }} Checking Internal NLB"
+  #elb_network_lb:
+    #name: "{{ nlb_name }}"
+    #region: "{{ region }}"
+    #subnets: "{{ subnets }}"
+  #check_mode: yes
+  #register: nlb_internal
+#  failed_when: >
+#    (elb_external.elbs[0].scheme != "internet-facing") or
+#    (elb_external.elbs[0].vpc_id != vpc_id) or
+#    (elb_external.elbs[0].listeners[0].instance_port != 80) or
+#    (elb_external.elbs[0].listeners[0].instance_protocol != "TCP") or
+#    (elb_external.elbs[0].listeners[0].load_balancer_port != 80) or
+#    (elb_external.elbs[0].listeners[0].protocol != "TCP") or
+#    (elb_external.elbs[0].tags.Name != lb_ext_name )
+
+#- name: "{{ label }} Debug: nlb_internal"
+  #debug:
+    #var: nlb_internal
+    ##verbosity: 2
+
