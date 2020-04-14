@@ -61,7 +61,7 @@ resource "aws_lb" "this" {
 
   subnets         = var.subnets
   internal        = var.internal
-  security_groups = var.security_groups
+  #security_groups = var.security_groups
 
   load_balancer_type = "network"
 

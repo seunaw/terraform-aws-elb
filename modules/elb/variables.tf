@@ -23,6 +23,7 @@ variable "subnets" {
 variable "internal" {
   description = "If true, ELB will be an internal ELB"
   type        = bool
+  default     = false
 }
 
 variable "cross_zone_load_balancing" {

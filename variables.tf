@@ -22,7 +22,7 @@ variable "subnets" {
 
 variable "internal" {
   description = "If true, ELB will be an internal ELB"
-  type        = string
+  type        = bool
   default     = false
 }
 
