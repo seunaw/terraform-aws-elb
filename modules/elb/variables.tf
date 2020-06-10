@@ -79,8 +79,3 @@ variable "health_check" {
   default     = {}
 }
 
-variable "network_lb" {
-  description = "Enable Network Load Balancer"
-  type        = bool
-  default     = false
-}

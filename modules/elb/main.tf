@@ -1,5 +1,5 @@
 resource "aws_elb" "this" {
-  count = !var.network_lb ? 1 : 0
+  #count = !var.network_lb ? 1 : 0
 
   name        = var.name
   name_prefix = var.name_prefix
@@ -51,48 +51,4 @@ resource "aws_elb" "this" {
       "Name" = format("%s", var.name)
     },
   )
-}
-
-# @TODO
-#   - S2S, I think you might need to move this to a separate module - terraform-aws-lb
-resource "aws_lb" "this" {
-  count = var.network_lb ? 1 : 0
-
-  name        = var.name
-  name_prefix = var.name_prefix
-
-  subnets         = var.subnets
-  internal        = var.internal
-  #security_groups = var.security_groups
-
-  load_balancer_type = "network"
-
-  enable_cross_zone_load_balancing = var.cross_zone_load_balancing
-  idle_timeout                     = var.idle_timeout
-
-  dynamic "access_logs" {
-    for_each = length(keys(var.access_logs)) == 0 ? [] : [var.access_logs]
-    content {
-      bucket        = access_logs.value.bucket
-      prefix = lookup(access_logs.value, "bucket_prefix", null)
-      enabled       = lookup(access_logs.value, "enabled", true)
-    }
-  }
-
-  tags = merge(
-    var.tags,
-    {
-      "Name" = format("%s", var.name)
-    },
-  )
-}
-
-# @TODO - add other target types. See https://www.terraform.io/docs/providers/aws/r/lb_target_group.html
-resource "aws_lb_target_group" "this" {
-  count    = var.network_lb ? 1 : 0
-
-  name     = "${var.name}-tg"
-  port     = var.lb_target_group.port
-  protocol = var.lb_target_group.protocol
-  vpc_id   = var.vpc_id
 }
