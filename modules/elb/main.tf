@@ -53,6 +53,8 @@ resource "aws_elb" "this" {
   )
 }
 
+# @TODO
+#   - S2S, I think you might need to move this to a separate module - terraform-aws-lb
 resource "aws_lb" "this" {
   count = var.network_lb ? 1 : 0
 
@@ -83,4 +85,14 @@ resource "aws_lb" "this" {
       "Name" = format("%s", var.name)
     },
   )
+}
+
+# @TODO - add other target types. See https://www.terraform.io/docs/providers/aws/r/lb_target_group.html
+resource "aws_lb_target_group" "this" {
+  count    = var.network_lb ? 1 : 0
+
+  name     = "${var.name}-tg"
+  port     = var.lb_target_group.port
+  protocol = var.lb_target_group.protocol
+  vpc_id   = var.vpc_id
 }

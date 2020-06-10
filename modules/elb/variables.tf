@@ -61,6 +61,12 @@ variable "listener" {
   type        = list(map(string))
 }
 
+variable "target_group_listener" {
+  description = "A list of listener blocks"
+  type        = list(map(string))
+  default     = [{}]
+}
+
 variable "access_logs" {
   description = "An access logs block"
   type        = map(string)
