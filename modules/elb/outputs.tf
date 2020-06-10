@@ -38,13 +38,3 @@ output "this_elb_zone_id" {
   value       = concat(aws_elb.this.*.zone_id, [""])[0]
 }
 
-output "this_lb_target_group_id" {
-  description = "Target group id"
-  value       = concat(aws_lb_target_group.this.*.id, [""])[0]
-}
-
-output "this_lb_target_group_arn" {
-  description = "Target group ARN"
-  value       = concat(aws_lb_target_group.this.*.arn, [""])[0]
-}
-
