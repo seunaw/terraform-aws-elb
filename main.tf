@@ -4,6 +4,8 @@
 module "elb" {
   source = "./modules/elb"
 
+  create_elb = var.create_elb
+
   name        = var.name
   name_prefix = var.name_prefix
 
@@ -19,6 +21,8 @@ module "elb" {
   listener     = var.listener
   access_logs  = var.access_logs
   health_check = var.health_check
+
+
 
   # @TODO - get tag naming convention from module
   tags = merge(
