@@ -79,3 +79,9 @@ variable "health_check" {
   default     = {}
 }
 
+variable "create_elb" {
+  description = "Create the elb or not"
+  type        = bool
+  default     = true
+}
+

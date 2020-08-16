@@ -85,8 +85,8 @@ variable "instances" {
   default     = []
 }
 
-variable "network_lb" {
-  description = "Enable Network Load Balancer"
+variable "create_elb" {
+  description = "Create the elb or not"
   type        = bool
-  default     = false
+  default     = true
 }

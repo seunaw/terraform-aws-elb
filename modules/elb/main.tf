@@ -1,6 +1,7 @@
 resource "aws_elb" "this" {
   #count = !var.network_lb ? 1 : 0
-
+  count = var.create_elb ? 1 : 0
+  
   name        = var.name
   name_prefix = var.name_prefix
 
